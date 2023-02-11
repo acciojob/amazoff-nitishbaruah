@@ -111,7 +111,7 @@ public class OrderRepository {
         int countOfOrders = 0;
         if(partnerWithDelivery.containsKey(partnerId)){
             for(String st:partnerWithDelivery.get(partnerId)){
-                if (orders.get(st).getDeliveryTime()<timeOut)
+                if (orders.get(st).getDeliveryTime()>timeOut)
                     countOfOrders++;
             }
 
@@ -129,8 +129,16 @@ public class OrderRepository {
         }
         Integer HH=time/60;
         Integer MM=time%60;
-        String lastOrder=HH+":"+MM;
-        return lastOrder;
+        String hour = String.valueOf(HH);
+        String min= String.valueOf(MM);
+        if(hour.length() == 1){
+            hour = "0" + hour;
+        }
+        if(min.length() == 1){
+            min= "0" + min;
+        }
+
+        return  hour+ ":" + min;
     }
 
     public void deletePartner(String partnerId){
